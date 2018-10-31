@@ -31,6 +31,7 @@ import ExpoTHREE, { AR as ThreeAR, THREE } from 'expo-three';
 // expo-graphics manages the setup/teardown of the gl context/ar session, creates a frame-loop, and observes size/orientation changes.
 // it also provides debug information with `isArCameraStateEnabled`
 import { View as GraphicsView } from 'expo-graphics';
+import Assets from '../Assets'; 
 
 export default class CameraScreen extends React.Component {
   /*/static navigationOptions = {
@@ -49,17 +50,17 @@ export default class CameraScreen extends React.Component {
     // `arTrackingConfiguration` denotes which camera the AR Session will use. 
     // World for rear, Face for front (iPhone X only)
     return (
-      <GraphicsView
-        style={{ flex: 1 }}
-        onContextCreate={this.onContextCreate}
-        onRender={this.onRender}
-        onResize={this.onResize}
-        arEnabled={true}
-        isArEnabled
-        isArRunningStateEnabled
-        isArCameraStateEnabled
-        arTrackingConfiguration={AR.TrackingConfigurations.World}
-      />
+        <GraphicsView
+          style={{ flex: 1 }}
+          onContextCreate={this.onContextCreate}
+          onRender={this.onRender}
+          onResize={this.onResize}
+          arEnabled={true}
+          isArEnabled
+          isArRunningStateEnabled
+          isArCameraStateEnabled
+          arTrackingConfiguration={AR.TrackingConfigurations.World}
+        />
     );
   }
 
@@ -101,7 +102,102 @@ export default class CameraScreen extends React.Component {
     // Setup a light so we can see the cube color
     // AmbientLight colors all things in the scene equally.
     this.scene.add(new THREE.AmbientLight(0xffffff));
-    console.log("at the end")
+
+    //Some text: 
+    //TODO: await? Figure out what to do about the font loader and with font
+    /*var loader = new THREE.FontLoader();//.setPath()
+    console.log("assets: " + Assets['gentilis_bold.typeface.json'].toString());
+    var font = loader.load("./assets/fonts/gentilis_bold.typeface.json", // Assets['gentilis_bold.typeface.json'],
+      ///assets/fonts/gentilis_bold.typeface.json',
+      // onLoad callback
+      function ( font ) {
+        console.log("loading font callback");
+        // do something with the font
+        //scene.add( font );
+        var textObject = new THREE.TextGeometry( 'Here is a business card', {
+          font: font,
+          size: 80,
+          height: 5,
+          curveSegments: 12,
+          bevelEnabled: true,
+          bevelThickness: 10,
+          bevelSize: 8,
+          bevelSegments: 5
+        });
+
+        //TODO: attach it to the scene with a mesh
+        /// Combine our geometry and material
+        //this.text = new THREE.Mesh(textObject, material);
+        //this.text.position.z = -0.4
+        //this.scene.add(this.text);
+      },
+
+
+    
+      //onProgress callback
+      function ( xhr ) {
+        console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
+      },
+    
+      // onError callback
+      function ( err ) {
+        console.log( 'An error happened' );
+        console.log( err );
+
+      }
+    );
+
+    const fontJson = Assets['gentilis_bold.typeface.json']; 
+
+    const font = new THREE.Font( fontJson );
+    var textObject = new THREE.TextGeometry( 'Here is a business card', {
+          font: font,
+          size: 80,
+          height: 5,
+          curveSegments: 12,
+          bevelEnabled: true,
+          bevelThickness: 10,
+          bevelSize: 8,
+          bevelSegments: 5
+        });
+
+    console.log("font loaded, adding to scene");
+
+    //TODO: might need lights?
+    var textMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
+    console.log("after text material")
+    var mesh = new THREE.Mesh( textObject, textMaterial );
+    //TODO: need a better understanding of space 
+    mesh.position.set( 0, 0, -1 );
+
+    this.scene.add( mesh );*/
+
+    console.log("at the end of setting up the scene")
+  };
+
+
+
+  setupLine = () => {
+    const geometry = new THREE.Geometry();
+    geometry.vertices.push(new THREE.Vector3());
+    geometry.vertices.push(new THREE.Vector3(1, 1, 1));
+    geometry.verticesNeedUpdate = true;
+    geometry.dynamic = true;
+
+    this.line = new THREE.Line(
+      geometry,
+      new THREE.LineBasicMaterial({
+        color: 0x00ff00,
+        opacity: 1,
+        linewidth: 7,
+        side: THREE.DoubleSide,
+        linecap: 'round',
+      })
+    );
+    /// https://stackoverflow.com/questions/36497763/three-js-line-disappears-if-one-point-is-outside-of-the-cameras-view
+    this.line.frustumCulled = false; // Avoid flicker
+    this.line.visible = false;
+    this.scene.add(this.line);
   };
 
   // When the phone rotates, or the view changes size, this method will be called.
@@ -118,7 +214,7 @@ export default class CameraScreen extends React.Component {
 
   // Called every frame.
   onRender = () => {
-    console.log("renderer from 1.1") 
+    //console.log("renderer from 1.1") 
     //TODO: try having the cube follow the camera around and always be in the middle 
     //this.cube.position.z = -0.4
 

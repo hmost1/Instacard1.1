@@ -20,6 +20,34 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "packagerOpts": {
+      "assetExts": [
+        "ttf",
+        "mp4",
+        "otf",
+        "dae",
+        "obj",
+        "mtl",
+        "amf",
+        "3mf",
+        "3ds",
+        "jpg",
+        "assimp",
+        "fbx",
+        "pmd",
+        "vmd",
+        "ply",
+        "stl",
+        "vtk",
+        "vtp",
+        "babylon",
+        "drc",
+        "pcd",
+        "pack",
+        "bvh",
+        "x"
+      ]
+    },
     "ios": {
       "supportsTablet": true
     }

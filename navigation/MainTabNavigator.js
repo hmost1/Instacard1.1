@@ -6,6 +6,8 @@ import TabBarIcon from '../components/TabBarIcon';
 import CardsScreen from '../screens/CardsScreen';
 import CameraScreen from '../screens/CameraScreen';
 import FiltersScreen from '../screens/FiltersScreen';
+import SpriteScreen from '../screens/SpriteScreen';
+
 
 const CardsStack = createStackNavigator({
   Cards: CardsScreen,
@@ -54,8 +56,24 @@ FiltersStack.navigationOptions = {
   ),
 };
 
+const SpriteStack = createStackNavigator({
+  Sprite: SpriteScreen,
+});
+
+SpriteStack.navigationOptions = {
+  tabBarLabel: 'Sprites',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name="hexagon" 
+      /*{Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options'}*/
+    />
+  ),
+};
+
 export default createBottomTabNavigator({
   CardsStack,
   CameraStack,
-  FiltersStack,
+  //FiltersStack,
+  SpriteStack
 });
