@@ -2,6 +2,7 @@ export default {
 	"marker.jpg": require(`./assets/images/trooper.jpg`),
 	"umino.jpg": require(`./assets/images/umino.jpg`),
 	"sunrise.jpg": require(`./assets/images/sunrise.jpg`),
+	"sunrise_1.jpg": require(`./assets/images/sunrise_1.jpg`),
 	"instacard.png": require(`./assets/images/instacard.png`),
 	"gentilis_bold.typeface.json": require(`./assets/fonts/gentilis_bold.typeface.json`),
 	/*"icons": {
